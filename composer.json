@@ -1,0 +1,40 @@
+{
+    "name": "lunistore/akeneo-connector-base",
+    "description": "Base tools to build Akeneo connectors",
+    "type": "library",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "Grégory Planchat",
+            "email": "gregory@luni.fr"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/pim-community-dev.git",
+            "branch": "master"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/platform.git",
+            "branch": "master"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Luni\\Component\\Connector\\": "src/Connector/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "require-dev": {
+        "akeneo/pim-community-dev": "1.4.*",
+        "phpspec/phpspec": "~2.0",
+        "fzaninotto/faker": "dev-master"
+    }
+}
