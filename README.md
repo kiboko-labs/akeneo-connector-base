@@ -108,6 +108,8 @@ services:
 
 This processor is suited for Magento assets exporting from Akeneo CE, when you have created multiple image attributes
 
+![Assets export manager](docs/assets-connector.png)
+
 In your bundle, you will need theses configurations:
 
 ```yaml
@@ -134,3 +136,8 @@ services:
         arguments:
             - '@pim_catalog.repository.attribute'
 ```
+
+Note: This will need a small patch
+ 
+![Assets export manager fix](docs/assets-patch.png)
+
