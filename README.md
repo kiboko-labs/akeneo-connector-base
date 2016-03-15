@@ -137,7 +137,7 @@ services:
             - '@pim_catalog.repository.attribute'
 ```
 
-Note: This will need a small patch
+Note: This will need a small patch in method `Pim\Bundle\ImportExportBundle\Twig\NormalizeConfigurationExtension::normalizeValueFilter()`
  
 ![Assets export manager fix](docs/assets-patch.png)
 
