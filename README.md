@@ -72,11 +72,43 @@ This is used for a media assets exporting job, like (`ProductAssetsProcessor`)[#
 
 Those steps are used to stub your WiP connectors.
 
+In your bundle, you will need theses configurations:
+
+```yaml
+# Resources/config/readers.yml
+parameters:
+    luni_connector.reader.dummy_item.class: Luni\Component\Connector\Processor\DummyReader
+
+services:
+    luni_connector.reader.dummy_item:
+        class: '%luni_connector.reader.dummy_item.class%'
+```
+
+```yaml
+# Resources/config/processors.yml
+parameters:
+    luni_connector.processor.dummy_item.class: Luni\Component\Connector\Processor\DummyProcessor
+
+services:
+    luni_connector.processor.dummy_item:
+        class: '%luni_connector.processor.dummy_item.class%'
+```
+
+```yaml
+# Resources/config/writers.yml
+parameters:
+    luni_connector.writers.dummy_item.class: Luni\Component\Connector\Processor\DummyWriter
+
+services:
+    luni_connector.writers.dummy_item:
+        class: '%luni_connector.writers.dummy_item.class%'
+```
+
 ### `ProductAssetsProcessor`
 
 This processor is suited for Magento assets exporting from Akeneo CE, when you have created multiple image attributes
 
-In your bundle, you will need this configuration :
+In your bundle, you will need theses configurations:
 
 ```yaml
 # Resources/config/processors.yml
