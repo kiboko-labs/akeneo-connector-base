@@ -57,7 +57,16 @@ class FooReader
 
 ### `AttributeManager`
 
-This helps you to create parametrable connectors, eg: for media assets exports
+This helps you to create parametrable connectors:
+
+```php
+<?php
+
+$attributeManager = new Luni\Component\Connector\Manager\AttributeManager($attributeRepository);
+$attributeManager->getAttributeChoices('pim_catalog_image'),
+```
+ 
+eg, used for a media asserts exporting job: 
 
 ```php
 <?php
@@ -172,3 +181,7 @@ class ProductAssetsProcessor
     }
 }
 ```
+
+### `DummyReader`, `DummyProcessor` and `DummyWriter`
+
+Those steps are used to stub your WiP connectors.
