@@ -66,122 +66,39 @@ $attributeManager = new Luni\Component\Connector\Manager\AttributeManager($attri
 $attributeManager->getAttributeChoices('pim_catalog_image'),
 ```
  
-eg, used for a media asserts exporting job: 
-
-```php
-<?php
-
-namespace Luni\Component\Connector\Processor;
-
-use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
-use Akeneo\Bundle\BatchBundle\Item\InvalidItemException;
-use Akeneo\Bundle\BatchBundle\Item\ItemProcessorInterface;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
-use Luni\Component\Connector\ConfigurationAwareTrait;
-use Luni\Component\Connector\Manager\AttributeManager;
-use Luni\Component\Connector\NameAwareTrait;
-use Luni\Component\Connector\StepExecutionAwareTrait;
-use Pim\Bundle\CatalogBundle\Model\ProductInterface;
-use Symfony\Component\Serializer\Serializer;
-
-class ProductAssetsProcessor
-    extends AbstractConfigurableStepElement
-    implements ItemProcessorInterface, StepExecutionAwareInterface
-{
-    use StepExecutionAwareTrait;
-    use ConfigurationAwareTrait;
-    use NameAwareTrait;
-
-    /**
-     * @var AttributeManager
-     */
-    private $attributeManager;
-
-    /**
-     * @var Serializer
-     */
-    private $serializer;
-
-    /**
-     * @var string
-     */
-    private $imageAttribute;
-
-    public function __construct(
-        AttributeManager $attributeManager,
-        Serializer $serializer
-    ) {
-        $this->attributeManager = $attributeManager;
-        $this->serializer = $serializer;
-
-        $this->imageAttribute = 'image';
-    }
-
-    public function getConfigurationFields()
-    {
-        return [
-            'imageAttribute' => [
-                'type'    => 'choice',
-                'options' => [
-                    'choices'  => $this->attributeManager->getAttributeChoices('pim_catalog_image'),
-                    'required' => true,
-                    'select2'  => true,
-                    'label' => 'luni_assets.steps.gallery.processor.imageAttribute.label',
-                    'help'  => 'luni_assets.steps.gallery.processor.imageAttribute.help',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getImageAttribute()
-    {
-        return $this->imageAttribute;
-    }
-
-    /**
-     * @param mixed $imageAttribute
-     */
-    public function setImageAttribute($imageAttribute)
-    {
-        $this->imageAttribute = $imageAttribute;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function process($item)
-    {
-        if (!$item instanceof ProductInterface) {
-            throw new InvalidItemException(sprintf('Item should be an instance of %s', ProductInterface::class), $item);
-        }
-
-        $normalized = $this->serializer->normalize($item, 'flat');
-
-        return [
-            'sku'         => $normalized['sku'],
-            'image'       => $this->getMediaAttribute($this->getImageAttribute(), $normalized),
-        ];
-    }
-
-    /**
-     * @param string $attributeCode
-     * @param array $normalized
-     * @return string
-     */
-    private function getMediaAttribute($attributeCode, array $normalized)
-    {
-        if (!isset($normalized[$attributeCode]) || empty($normalized[$attributeCode])) {
-            return null;
-        }
-
-        return $normalized[$attributeCode];
-    }
-}
-```
+This is used for a media assets exporting job, like (`ProductAssetsProcessor`)[#ProductAssetsProcessor]
 
 ### `DummyReader`, `DummyProcessor` and `DummyWriter`
 
 Those steps are used to stub your WiP connectors.
+
+### `ProductAssetsProcessor`
+
+This processor is suited for Magento assets exporting from Akeneo CE, when you have created multiple image attributes
+
+In your bundle, you will need this configuration :
+
+```yaml
+# Resources/config/processors.yml
+parameters:
+    luni_assets.processor.image.product.class: Luni\Component\Connector\Processor\ProductAssetsProcessor
+
+services:
+    luni_assets.processor.product.image:
+        class: '%luni_assets.processor.image.product.class%'
+        arguments:
+            - '@luni_assets.manager.attributes'
+            - '@pim_serializer'
+```
+
+```yaml
+# Resources/config/managers.yml
+parameters:
+    luni_assets.manager.attributes.class: Luni\Component\Connector\Manager\AttributeManager
+
+services:
+    luni_assets.manager.attributes:
+        class: '%luni_assets.manager.attributes.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+```
