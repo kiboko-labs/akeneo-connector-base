@@ -66,7 +66,7 @@ $attributeManager = new Luni\Component\Connector\Manager\AttributeManager($attri
 $attributeManager->getAttributeChoices('pim_catalog_image'),
 ```
  
-This is used for a media assets exporting job, like (`ProductAssetsProcessor`)[#ProductAssetsProcessor]
+This is used for a media assets exporting job, like [`ProductAssetsProcessor`](#ProductAssetsProcessor)
 
 ### `DummyReader`, `DummyProcessor` and `DummyWriter`
 
