@@ -16,6 +16,7 @@ class CsvVariantGroupWriter extends CsvWriter
      */
     public function __construct(FileExporterInterface $fileExporter)
     {
+        parent::__construct();
         $this->fileExporter = $fileExporter;
     }
 

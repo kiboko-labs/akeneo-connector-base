@@ -11,7 +11,6 @@ use Luni\Component\Connector\Manager\AttributeManager;
 use Luni\Component\Connector\NameAwareTrait;
 use Luni\Component\Connector\StepExecutionAwareTrait;
 use Pim\Bundle\CatalogBundle\Model\GroupInterface;
-use Pim\Component\Connector\Writer\File\FileExporterPathGeneratorInterface;
 use Symfony\Component\Serializer\Serializer;
 
 class VariantGroupAssetsProcessor
@@ -263,15 +262,17 @@ class VariantGroupAssetsProcessor
     }
 
     /**
-     * @param array $attributeCodes
-     * @param array $normalized
+     * @param array          $attributeCodes
+     * @param array          $normalized
+     * @param GroupInterface $item
+     *
      * @return string
      */
-    private function getGalleryAttribute(array $attributeCodes, array $normalized, $code)
+    private function getGalleryAttribute(array $attributeCodes, array $normalized, GroupInterface $item)
     {
         $values = [];
         foreach ($attributeCodes as $attributeCode) {
-            $value = $this->getMediaAttribute($attributeCode, $normalized, $code);
+            $value = $this->getMediaAttribute($attributeCode, $normalized, $item);
             if ($value === null) {
                 continue;
             }
