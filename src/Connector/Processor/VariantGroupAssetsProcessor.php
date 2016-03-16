@@ -231,8 +231,6 @@ class VariantGroupAssetsProcessor
             'gallery'     => $this->getGalleryAttribute($this->getGalleryAttributes(), $normalized, $item),
         ];
 
-        var_dump($data);
-
         return $data;
     }
 
