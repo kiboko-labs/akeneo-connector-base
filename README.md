@@ -137,7 +137,5 @@ services:
             - '@pim_catalog.repository.attribute'
 ```
 
-Note: This will need a small patch in method `Pim\Bundle\ImportExportBundle\Twig\NormalizeConfigurationExtension::normalizeValueFilter()`
- 
-![Assets export manager fix](docs/assets-patch.png)
+Note: This will require a small patch in method `Pim\Bundle\ImportExportBundle\Twig\NormalizeConfigurationExtension::normalizeValueFilter()` merged in commit https://github.com/akeneo/pim-community-dev/commit/650b05ce2a7d0d57db38be728b29fc6fed726824
 
