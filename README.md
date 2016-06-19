@@ -25,16 +25,16 @@ This adapter brings :
 
 ### `ConfigurationAwareTrait`
 
-This trait fixed features in `Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement`,
+This trait fixed features in `Akeneo\Component\Batch\Item\AbstractConfigurableStepElement`,
 the `getConfiguration` method requires public attributes to be defined, but in lots of cases,
 you may not want to expose your configuration handlers.
 
 ```php
 <?php
 
-use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
-use Akeneo\Bundle\BatchBundle\Item\ItemReaderInterface;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
+use Akeneo\Component\Batch\Item\ItemReaderInterface;
+use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
 use Luni\Component\Connector\ConfigurationAwareTrait;
 use Luni\Component\Connector\NameAwareTrait;
 use Luni\Component\Connector\StepExecutionAwareTrait;
@@ -143,6 +143,4 @@ services:
         arguments:
             - '@pim_catalog.repository.attribute'
 ```
-
-Note: This will require a small patch in method `Pim\Bundle\ImportExportBundle\Twig\NormalizeConfigurationExtension::normalizeValueFilter()` merged in commit https://github.com/akeneo/pim-community-dev/commit/650b05ce2a7d0d57db38be728b29fc6fed726824
 
