@@ -18,8 +18,10 @@ This adapter brings :
 
 | PIM version | Component version |
 |:-----------:|:-----------------:|
-| 1.5.*       | 1.1.*             |
+| 1.5.*       | 1.1.*             | 
 | 1.4.*       | 1.0.*             |
+
+Note : From version 1.1, namespace changed from `Luni\Component\Connector` to `Kiboko\Component\Connector`
  
 ## Utilities
 
