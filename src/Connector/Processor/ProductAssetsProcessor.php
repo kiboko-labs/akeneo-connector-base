@@ -2,15 +2,15 @@
 
 namespace Luni\Component\Connector\Processor;
 
-use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
-use Akeneo\Bundle\BatchBundle\Item\InvalidItemException;
-use Akeneo\Bundle\BatchBundle\Item\ItemProcessorInterface;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
+use Akeneo\Component\Batch\Item\InvalidItemException;
+use Akeneo\Component\Batch\Item\ItemProcessorInterface;
+use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
 use Luni\Component\Connector\ConfigurationAwareTrait;
 use Luni\Component\Connector\Manager\AttributeManager;
 use Luni\Component\Connector\NameAwareTrait;
 use Luni\Component\Connector\StepExecutionAwareTrait;
-use Pim\Bundle\CatalogBundle\Model\ProductInterface;
+use Pim\Component\Catalog\Model\ProductInterface;
 use Symfony\Component\Serializer\Serializer;
 
 class ProductAssetsProcessor

@@ -2,9 +2,9 @@
 
 namespace Luni\Component\Connector\Reader;
 
-use Akeneo\Bundle\BatchBundle\Item\AbstractConfigurableStepElement;
-use Akeneo\Bundle\BatchBundle\Item\ItemReaderInterface;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
+use Akeneo\Component\Batch\Item\ItemReaderInterface;
+use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
 use Luni\Component\Connector\ConfigurationAwareTrait;
 use Luni\Component\Connector\NameAwareTrait;
 use Luni\Component\Connector\StepExecutionAwareTrait;

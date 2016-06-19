@@ -2,7 +2,7 @@
 
 namespace Luni\Component\Connector;
 
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
+use Akeneo\Component\Batch\Model\StepExecution;
 
 trait StepExecutionAwareTrait
 {

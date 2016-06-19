@@ -3,7 +3,7 @@
 namespace Luni\Component\Connector\Manager;
 
 use Pim\Bundle\CatalogBundle\Doctrine\ORM\Repository\AttributeRepository;
-use Pim\Bundle\CatalogBundle\Model\AttributeInterface;
+use Pim\Component\Catalog\Model\AttributeInterface;
 
 class AttributeManager
 {
