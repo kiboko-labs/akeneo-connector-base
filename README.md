@@ -14,6 +14,13 @@ This adapter brings :
  * Dummy reader/processor/writer
  * Utility traits for your connectors
  
+## Versions
+
+| PIM version | Component version |
+|:-----------:|:-----------------:|
+| 1.5.*       | 1.1.*             |
+| 1.4.*       | 1.0.*             |
+ 
 ## Utilities
 
 ### `ConfigurationAwareTrait`
