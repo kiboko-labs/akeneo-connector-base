@@ -1,9 +1,9 @@
 <?php
 
-namespace Luni\Component\Connector\Discoverer;
+namespace Kiboko\Component\Connector\Discoverer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-@use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\AttributeOptionInterface;
 use Pim\Component\Catalog\Model\AttributeOptionValueInterface;
 use Pim\Bundle\CatalogBundle\Repository\AttributeOptionRepositoryInterface;

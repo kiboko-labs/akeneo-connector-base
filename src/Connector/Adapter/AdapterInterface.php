@@ -1,6 +1,6 @@
 <?php
 
-namespace Luni\Component\Connector\Adapter;
+namespace Kiboko\Component\Connector\Adapter;
 
 interface AdapterInterface
     extends \IteratorAggregate, \Countable

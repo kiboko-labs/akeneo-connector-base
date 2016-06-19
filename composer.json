@@ -23,7 +23,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Luni\\Component\\Connector\\": "src/Connector/"
+            "Kiboko\\Component\\Connector\\": "src/Connector/"
         }
     },
     "config": {

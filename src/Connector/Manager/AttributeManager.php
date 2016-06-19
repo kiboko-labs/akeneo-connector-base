@@ -1,19 +1,19 @@
 <?php
 
-namespace Luni\Component\Connector\Manager;
+namespace Kiboko\Component\Connector\Manager;
 
-use Pim\Bundle\CatalogBundle\Doctrine\ORM\Repository\AttributeRepository;
 use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Catalog\Repository\AttributeRepositoryInterface;
 
 class AttributeManager
 {
     /**
-     * @var AttributeRepository
+     * @var AttributeRepositoryInterface
      */
     private $repository;
 
     public function __construct(
-        AttributeRepository $repository
+        AttributeRepositoryInterface $repository
     ) {
         $this->repository = $repository;
     }

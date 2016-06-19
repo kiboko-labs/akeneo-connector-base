@@ -1,15 +1,15 @@
 <?php
 
-namespace Luni\Component\Connector\Processor;
+namespace Kiboko\Component\Connector\Processor;
 
 use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\InvalidItemException;
 use Akeneo\Component\Batch\Item\ItemProcessorInterface;
 use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
-use Luni\Component\Connector\ConfigurationAwareTrait;
-use Luni\Component\Connector\Manager\AttributeManager;
-use Luni\Component\Connector\NameAwareTrait;
-use Luni\Component\Connector\StepExecutionAwareTrait;
+use Kiboko\Component\Connector\ConfigurationAwareTrait;
+use Kiboko\Component\Connector\Manager\AttributeManager;
+use Kiboko\Component\Connector\NameAwareTrait;
+use Kiboko\Component\Connector\StepExecutionAwareTrait;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Symfony\Component\Serializer\Serializer;
 

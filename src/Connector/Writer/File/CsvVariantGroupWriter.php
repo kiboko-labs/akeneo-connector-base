@@ -1,9 +1,9 @@
 <?php
 
-namespace Luni\Component\Connector\Writer\File;
+namespace Kiboko\Component\Connector\Writer\File;
 
 use Akeneo\Component\FileStorage\Exception\FileTransferException;
-use Pim\Bundle\BaseConnectorBundle\Writer\File\CsvWriter;
+use Pim\Component\Connector\Writer\File\CsvWriter;
 use Pim\Component\Connector\Writer\File\FileExporterInterface;
 
 class CsvVariantGroupWriter extends CsvWriter
@@ -16,7 +16,6 @@ class CsvVariantGroupWriter extends CsvWriter
      */
     public function __construct(FileExporterInterface $fileExporter)
     {
-        parent::__construct();
         $this->fileExporter = $fileExporter;
     }
 

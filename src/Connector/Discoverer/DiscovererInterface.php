@@ -1,6 +1,6 @@
 <?php
 
-namespace Luni\Component\Connector\Discoverer;
+namespace Kiboko\Component\Connector\Discoverer;
 
 interface DiscovererInterface
 {

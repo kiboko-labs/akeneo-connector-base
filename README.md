@@ -37,9 +37,9 @@ you may not want to expose your configuration handlers.
 use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\ItemReaderInterface;
 use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
-use Luni\Component\Connector\ConfigurationAwareTrait;
-use Luni\Component\Connector\NameAwareTrait;
-use Luni\Component\Connector\StepExecutionAwareTrait;
+use Kiboko\Component\Connector\ConfigurationAwareTrait;
+use Kiboko\Component\Connector\NameAwareTrait;
+use Kiboko\Component\Connector\StepExecutionAwareTrait;
 
 class FooReader
     extends AbstractConfigurableStepElement
@@ -71,7 +71,7 @@ This helps you to create parametrable connectors:
 ```php
 <?php
 
-$attributeManager = new Luni\Component\Connector\Manager\AttributeManager($attributeRepository);
+$attributeManager = new Kiboko\Component\Connector\Manager\AttributeManager($attributeRepository);
 $attributeManager->getAttributeChoices('pim_catalog_image'),
 ```
  
@@ -86,7 +86,7 @@ In your bundle, you will need theses configurations:
 ```yaml
 # Resources/config/readers.yml
 parameters:
-    luni_connector.reader.dummy_item.class: Luni\Component\Connector\Processor\DummyReader
+    luni_connector.reader.dummy_item.class: Kiboko\Component\Connector\Processor\DummyReader
 
 services:
     luni_connector.reader.dummy_item:
@@ -96,7 +96,7 @@ services:
 ```yaml
 # Resources/config/processors.yml
 parameters:
-    luni_connector.processor.dummy_item.class: Luni\Component\Connector\Processor\DummyProcessor
+    luni_connector.processor.dummy_item.class: Kiboko\Component\Connector\Processor\DummyProcessor
 
 services:
     luni_connector.processor.dummy_item:
@@ -106,7 +106,7 @@ services:
 ```yaml
 # Resources/config/writers.yml
 parameters:
-    luni_connector.writers.dummy_item.class: Luni\Component\Connector\Processor\DummyWriter
+    luni_connector.writers.dummy_item.class: Kiboko\Component\Connector\Processor\DummyWriter
 
 services:
     luni_connector.writers.dummy_item:
@@ -124,7 +124,7 @@ In your bundle, you will need theses configurations:
 ```yaml
 # Resources/config/processors.yml
 parameters:
-    luni_assets.processor.image.product.class: Luni\Component\Connector\Processor\ProductAssetsProcessor
+    luni_assets.processor.image.product.class: Kiboko\Component\Connector\Processor\ProductAssetsProcessor
 
 services:
     luni_assets.processor.product.image:
@@ -137,7 +137,7 @@ services:
 ```yaml
 # Resources/config/managers.yml
 parameters:
-    luni_assets.manager.attributes.class: Luni\Component\Connector\Manager\AttributeManager
+    luni_assets.manager.attributes.class: Kiboko\Component\Connector\Manager\AttributeManager
 
 services:
     luni_assets.manager.attributes:

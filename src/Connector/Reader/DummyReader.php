@@ -1,13 +1,13 @@
 <?php
 
-namespace Luni\Component\Connector\Reader;
+namespace Kiboko\Component\Connector\Reader;
 
 use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\ItemReaderInterface;
 use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
-use Luni\Component\Connector\ConfigurationAwareTrait;
-use Luni\Component\Connector\NameAwareTrait;
-use Luni\Component\Connector\StepExecutionAwareTrait;
+use Kiboko\Component\Connector\ConfigurationAwareTrait;
+use Kiboko\Component\Connector\NameAwareTrait;
+use Kiboko\Component\Connector\StepExecutionAwareTrait;
 
 class DummyReader
     extends AbstractConfigurableStepElement

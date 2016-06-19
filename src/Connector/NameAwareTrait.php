@@ -1,6 +1,6 @@
 <?php
 
-namespace Luni\Component\Connector;
+namespace Kiboko\Component\Connector;
 
 
 use Doctrine\Common\Inflector\Inflector;

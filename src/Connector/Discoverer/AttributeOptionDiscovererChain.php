@@ -1,6 +1,6 @@
 <?php
 
-namespace Luni\Component\Connector\Discoverer;
+namespace Kiboko\Component\Connector\Discoverer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
