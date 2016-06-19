@@ -1,5 +1,5 @@
 {
-    "name": "lunistore/akeneo-connector-base",
+    "name": "kiboko/akeneo-connector-base",
     "description": "Base tools to build Akeneo connectors",
     "type": "library",
     "license": "LGPL",
