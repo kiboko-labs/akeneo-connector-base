@@ -10,24 +10,24 @@ use Kiboko\Component\Connector\ItemMapperInterface;
 class ItemStep extends AkeneoItemStep
 {
     /** @var ItemMapperInterface */
-    protected $processor = null;
+    protected $mapper = null;
 
     /**
-     * Set processor
-     * @param ItemMapperInterface $processor
+     * Set mapper
+     * @param ItemMapperInterface $mapper
      */
-    public function setMapper(ItemMapperInterface $processor)
+    public function setMapper(ItemMapperInterface $mapper)
     {
-        $this->processor = $processor;
+        $this->mapper = $mapper;
     }
 
     /**
-     * Get processor
+     * Get mapper
      * @return ItemMapperInterface|null
      */
     public function getMapper()
     {
-        return $this->processor;
+        return $this->mapper;
     }
 
     /**
@@ -37,11 +37,11 @@ class ItemStep extends AkeneoItemStep
      */
     public function getConfigurableStepElements()
     {
-        return array(
-            'reader'    => $this->getReader(),
-            'mapper'    => $this->getMapper(),
-            'processor' => $this->getMapper(),
-            'writer'    => $this->getWriter(),
+        return array_merge(
+            parent::getConfigurableStepElements(),
+            [
+                'mapper' => $this->getMapper(),
+            ]
         );
     }
 
@@ -97,14 +97,14 @@ class ItemStep extends AkeneoItemStep
     protected function map($readItem)
     {
         try {
-            $mappedItems = $this->processor->process($readItem);
+            $mappedItems = $this->mapper->map($readItem);
             if (is_array($mappedItems)) {
                 return new \ArrayIterator($mappedItems);
             } else if ($mappedItems instanceof \Traversable) {
                 return $mappedItems;
             }
         } catch (InvalidItemException $e) {
-            $this->handleStepExecutionWarning($this->stepExecution, $this->processor, $e);
+            $this->handleStepExecutionWarning($this->stepExecution, $this->mapper, $e);
         }
 
         return new \ArrayIterator([]);
