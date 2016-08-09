@@ -2,15 +2,10 @@
 
 namespace Kiboko\Component\Connector\Step;
 
-use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\InvalidItemException;
-use Akeneo\Component\Batch\Item\ItemProcessorInterface;
-use Akeneo\Component\Batch\Item\ItemReaderInterface;
-use Akeneo\Component\Batch\Item\ItemWriterInterface;
 use Akeneo\Component\Batch\Model\StepExecution;
 use Akeneo\Component\Batch\Step\ItemStep as AkeneoItemStep;
-use Doctrine\MongoDB\ArrayIterator;
-use Kiboko\Bundle\MagentoDriverBundle\Item\ItemMapperInterface;
+use Kiboko\Component\Connector\ItemMapperInterface;
 
 class ItemStep extends AkeneoItemStep
 {
@@ -104,14 +99,14 @@ class ItemStep extends AkeneoItemStep
         try {
             $mappedItems = $this->processor->process($readItem);
             if (is_array($mappedItems)) {
-                return new ArrayIterator($mappedItems);
+                return new \ArrayIterator($mappedItems);
             } else if ($mappedItems instanceof \Traversable) {
-                
+                return $mappedItems;
             }
         } catch (InvalidItemException $e) {
             $this->handleStepExecutionWarning($this->stepExecution, $this->processor, $e);
-
-            return null;
         }
+
+        return new \ArrayIterator([]);
     }
 }
