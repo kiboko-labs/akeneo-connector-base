@@ -33,7 +33,7 @@
     "require": {
     },
     "require-dev": {
-        "akeneo/pim-community-dev": "1.5.*",
+        "akeneo/pim-community-dev": "1.6.*",
         "phpspec/phpspec": "~2.0",
         "fzaninotto/faker": "dev-master"
     }

@@ -2,24 +2,18 @@
 
 namespace Kiboko\Component\Connector\Processor;
 
-use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\InvalidItemException;
 use Akeneo\Component\Batch\Item\ItemProcessorInterface;
 use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
-use Kiboko\Component\Connector\ConfigurationAwareTrait;
 use Kiboko\Component\Connector\Manager\AttributeManager;
-use Kiboko\Component\Connector\NameAwareTrait;
 use Kiboko\Component\Connector\StepExecutionAwareTrait;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Symfony\Component\Serializer\Serializer;
 
 class ProductAssetsProcessor
-    extends AbstractConfigurableStepElement
     implements ItemProcessorInterface, StepExecutionAwareInterface
 {
     use StepExecutionAwareTrait;
-    use ConfigurationAwareTrait;
-    use NameAwareTrait;
 
     /**
      * @var AttributeManager
@@ -67,53 +61,6 @@ class ProductAssetsProcessor
         $this->thumbnailAttribute  = 'thumbnail';
         $this->smallImageAttribute = 'small_image';
         $this->galleryAttributes   = [];
-    }
-
-    public function getConfigurationFields()
-    {
-        return [
-            'imageAttribute' => [
-                'type'    => 'choice',
-                'options' => [
-                    'choices'  => $this->attributeManager->getAttributeChoices('pim_catalog_image'),
-                    'required' => true,
-                    'select2'  => true,
-                    'label' => 'luni_assets.steps.gallery.processor.imageAttribute.label',
-                    'help'  => 'luni_assets.steps.gallery.processor.imageAttribute.help',
-                ],
-            ],
-            'thumbnailAttribute' => [
-                'type'    => 'choice',
-                'options' => [
-                    'choices'  => $this->attributeManager->getAttributeChoices('pim_catalog_image'),
-                    'required' => true,
-                    'select2'  => true,
-                    'label' => 'luni_assets.steps.gallery.processor.thumbnailAttribute.label',
-                    'help'  => 'luni_assets.steps.gallery.processor.thumbnailAttribute.help',
-                ],
-            ],
-            'smallImageAttribute' => [
-                'type'    => 'choice',
-                'options' => [
-                    'choices'  => $this->attributeManager->getAttributeChoices('pim_catalog_image'),
-                    'required' => true,
-                    'select2'  => true,
-                    'label' => 'luni_assets.steps.gallery.processor.smallImageAttribute.label',
-                    'help'  => 'luni_assets.steps.gallery.processor.smallImageAttribute.help',
-                ],
-            ],
-            'galleryAttributes' => [
-                'type'    => 'choice',
-                'options' => [
-                    'choices'  => $this->attributeManager->getAttributeChoices('pim_catalog_image'),
-                    'required' => true,
-                    'select2'  => true,
-                    'multiple' => true,
-                    'label' => 'luni_assets.steps.gallery.processor.galleryAttributes.label',
-                    'help'  => 'luni_assets.steps.gallery.processor.galleryAttributes.help',
-                ],
-            ],
-        ];
     }
 
     /**

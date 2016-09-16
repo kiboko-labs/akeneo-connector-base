@@ -18,6 +18,7 @@ This adapter brings :
 
 | PIM version | Component version |
 |:-----------:|:-----------------:|
+| 1.6.*       | 1.2.*             |
 | 1.5.*       | 1.1.*             | 
 | 1.4.*       | 1.0.*             |
 
@@ -25,48 +26,9 @@ Note : From version 1.1, namespace changed from `Luni\Component\Connector` to `K
  
 ## Utilities
 
-### `ConfigurationAwareTrait`
-
-This trait fixed features in `Akeneo\Component\Batch\Item\AbstractConfigurableStepElement`,
-the `getConfiguration` method requires public attributes to be defined, but in lots of cases,
-you may not want to expose your configuration handlers.
-
-```php
-<?php
-
-use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
-use Akeneo\Component\Batch\Item\ItemReaderInterface;
-use Akeneo\Component\Batch\Step\StepExecutionAwareInterface;
-use Kiboko\Component\Connector\ConfigurationAwareTrait;
-use Kiboko\Component\Connector\NameAwareTrait;
-use Kiboko\Component\Connector\StepExecutionAwareTrait;
-
-class FooReader
-    extends AbstractConfigurableStepElement
-    implements ItemReaderInterface, StepExecutionAwareInterface
-{
-    use StepExecutionAwareTrait;
-    use ConfigurationAwareTrait;
-    use NameAwareTrait;
-
-    public function getConfigurationFields()
-    {
-        // ...
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function read()
-    {
-        // ...
-    }
-}
-```
-
 ### `AttributeManager`
 
-This helps you to create parametrable connectors:
+This helps you to create parameterizable connectors:
 
 ```php
 <?php
@@ -75,13 +37,7 @@ $attributeManager = new Kiboko\Component\Connector\Manager\AttributeManager($att
 $attributeManager->getAttributeChoices('pim_catalog_image'),
 ```
  
-This is used for a media assets exporting job, like [`ProductAssetsProcessor`](#productassetsprocessor)
-
-### `DummyReader`, `DummyProcessor` and `DummyWriter`
-
-Those steps are used to stub your WiP connectors.
-
-In your bundle, you will need theses configurations:
+This is used for a media assets exporting job, like [`ProductAssetsProcessor`](#productassetsprocessor-and-variantgroupassetsprocessor)
 
 ```yaml
 # Resources/config/readers.yml
@@ -113,36 +69,77 @@ services:
         class: '%luni_connector.writers.dummy_item.class%'
 ```
 
-### `ProductAssetsProcessor`
+### `ProductAssetsProcessor` and `VariantGroupAssetsProcessor`
 
-This processor is suited for Magento assets exporting from Akeneo CE, when you have created multiple image attributes
+These processors are suited for Magento assets exporting from Akeneo CE, when you have created multiple image attributes.
 
 ![Assets export manager](docs/assets-connector.png)
 
 In your bundle, you will need theses configurations:
 
 ```yaml
-# Resources/config/processors.yml
+# Resources/config/services.yml
+# app/config/services.yml
 parameters:
-    luni_assets.processor.image.product.class: Kiboko\Component\Connector\Processor\ProductAssetsProcessor
+    acme_dummy_connector.manager.attributes.class: Kiboko\Component\Connector\Manager\AttributeManager
 
+    acme_dummy_connector.job.job_parameters.validator.image_attribute_validator.class:      Kiboko\Component\Connector\JobParameters\Constraint\ImageAttributeValidator
+    acme_dummy_connector.job.job_parameters.validator.image_attribute_list_validator.class: Kiboko\Component\Connector\JobParameters\Constraint\ImageAttributeListValidator
+    
+    acme_dummy_connector.job.job_parameters.default_values_provider.assets_export.class:        Kiboko\Component\Connector\JobParameters\DefaultValuesProvider\ProductAssetsExport
+    acme_dummy_connector.job.job_parameters.constraint_collection_provider.assets_export.class: Kiboko\Component\Connector\JobParameters\ConstraintCollectionProvider\ProductAssetsExport
+    acme_dummy_connector.job.job_parameters.form_configuration_provider.assets_export.class:     Kiboko\Component\Connector\JobParameters\FormConfigurationProvider\ProductAssetsExport
 services:
-    luni_assets.processor.product.image:
-        class: '%luni_assets.processor.image.product.class%'
+    # Validation services
+    validator.image_attribute:
+        class: '%acme_dummy_connector.job.job_parameters.validator.image_attribute_validator.class%'
         arguments:
             - '@luni_assets.manager.attributes'
-            - '@pim_serializer'
-```
-
-```yaml
-# Resources/config/managers.yml
-parameters:
-    luni_assets.manager.attributes.class: Kiboko\Component\Connector\Manager\AttributeManager
-
-services:
-    luni_assets.manager.attributes:
-        class: '%luni_assets.manager.attributes.class%'
+        tags:
+            - { name: validator.constraint_validator }
+    validator.image_attribute_list:
+        class: '%acme_dummy_connector.job.job_parameters.validator.image_attribute_list_validator.class%'
         arguments:
-            - '@pim_catalog.repository.attribute'
+            - '@luni_assets.manager.attributes'
+        tags:
+            - { name: validator.constraint_validator }
+         
+    # Default values for our JobParameters
+    acme_dummy_connector.job.job_parameters.default_values_provider.assets_export:
+        class: '%acme_dummy_connector.job.job_parameters.default_values_provider.assets_export.class%'
+        arguments:
+            -
+                - 'assets_job' # the job name
+        tags:
+            - { name: akeneo_batch.job.job_parameters.default_values_provider }
+
+    # Validation constraints for our JobParameters
+    acme_dummy_connector.job.job_parameters.constraint_collection_provider.assets_export:
+        class: '%acme_dummy_connector.job.job_parameters.constraint_collection_provider.assets_export.class%'
+        arguments:
+            -
+                - 'assets_job' # the job name
+        tags:
+            - { name: akeneo_batch.job.job_parameters.constraint_collection_provider }
+
+    # Form configuration for our JobParameters
+    acme_dummy_connector.job.job_parameters.form_configuration_provider.assets_export:
+        class: '%acme_dummy_connector.job.job_parameters.form_configuration_provider.assets_export.class%'
+        arguments:
+            -
+                - 'assets_job' # the job name
+        tags:
+            - { name: pim_import_export.job_parameters.form_configuration_provider }
 ```
 
+## Removed functionality in version 1.2
+
+### `NameAwareTrait` and `ConfigurationAwareTrait` traits
+
+The traits `NameAwareTrait` and `ConfigurationAwareTrait` were removed in version 1.2, since Akeneo 1.6 changed its options retrieval in batch steps
+
+See [Akeneo 1.6 changelog](https://github.com/akeneo/pim-community-standard/blob/1.6/UPGRADE-1.6.md#remove-the-reference-to-akeneocomponentbatchitemabstractconfigurablestepelement)
+
+### `Kiboko\Component\Connector\Writer\File\CsvVariantGroupWriter` writer
+
+This writer is not needed anymore

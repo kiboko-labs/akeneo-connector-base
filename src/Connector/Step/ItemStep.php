@@ -35,10 +35,10 @@ class ItemStep extends AkeneoItemStep
      *
      * @return array
      */
-    public function getConfigurableStepElements()
+    public function getStepElements()
     {
         return array_merge(
-            parent::getConfigurableStepElements(),
+            parent::getStepElements(),
             [
                 'mapper' => $this->getMapper(),
             ]

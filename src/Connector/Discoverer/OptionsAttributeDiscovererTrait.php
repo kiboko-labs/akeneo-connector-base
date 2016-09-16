@@ -3,7 +3,7 @@
 namespace Kiboko\Component\Connector\Discoverer;
 
 use Akeneo\Component\Batch\Model\StepExecution;
-use Pim\Bundle\CatalogBundle\Repository\AttributeOptionRepositoryInterface;
+use Pim\Component\Catalog\Repository\AttributeOptionRepositoryInterface;
 use Pim\Component\Catalog\Repository\AttributeRepositoryInterface;
 
 trait OptionsAttributeDiscovererTrait
